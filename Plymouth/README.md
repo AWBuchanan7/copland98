@@ -1,4 +1,4 @@
-## Plymouth boot splash theme
+# Plymouth boot splash theme
 
 The Windows95 boot theme is based on the template provided by [http://brej.org/blog/?p=174](https://web.archive.org/web/20180210003217/https://brej.org/blog/?p=174)
 
@@ -6,7 +6,8 @@ It is meant to simulate the Windows 95 boot screen and shutdown screen.
 
 The RetroTux boot theme is based on the xubuntu-logo Plymouth theme.
 
-#### Install instructions for XUbuntu
+## Install instructions for XUbuntu
+
 Copy the theme folder into the Plymouth theme directory.
 
 - `sudo cp -r Chicago95/Plymouth/Chicago95 /usr/share/plymouth/themes/`
@@ -25,7 +26,7 @@ Update initramfs
 
 - `sudo update-initramfs -u`
 
-#### Install instructions for Arch Linux
+## Install instructions for Arch Linux
 
 Install Plymouth to your system ([ArchWiki](https://wiki.archlinux.org/index.php/Plymouth#Installation))
 

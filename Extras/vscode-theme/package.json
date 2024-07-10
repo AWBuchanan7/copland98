@@ -1,0 +1,61 @@
+{
+    "name": "copland98-vscode-theme",
+    "displayName": "Copland 98",
+    "description": "Copland 98 theme for VS Code",
+    "preview": true,
+    "publisher": "wassimdev, AWBuchanan7",
+    "version": "0.1.0",
+    "license": "MIT",
+    "icon": "icon.png",
+    "galleryBanner": {
+        "color": "#4A7D7F",
+        "theme": "light"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/AWBuchanan7/copland98-vscode-theme"
+    },
+    "homepage": "https://github.com/AWBuchanan7/copland98-vscode-theme/blob/main/README.md",
+    "bugs": {
+        "url": "https://github.com/AWBuchanan7/copland98-vscode-theme/issues"
+    },
+    "engines": {
+        "vscode": "^1.57.0"
+    },
+    "scripts": {
+        "package": "npx vsce package",
+        "release": "npx vsce publish"
+    },
+    "keywords": [
+        "theme",
+        "windows",
+        "light",
+        "98",
+        "95",
+        "nt",
+        "vintage",
+        "icons",
+        "icon-theme",
+        "customization"
+    ],
+    "categories": [
+        "Themes"
+    ],
+    "contributes": {
+        "themes": [
+            {
+                "id": "copland98",
+                "label": "Copland 98",
+                "uiTheme": "vs",
+                "path": "./themes/copland98-color-theme.json"
+            }
+        ],
+        "iconThemes": [
+            {
+                "id": "copland98-icons",
+                "label": "Copland 98 Icons",
+                "path": "./fileicons/copland98-icon-theme.json"
+            }
+        ]
+    }
+}

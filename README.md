@@ -9,7 +9,7 @@
 
 I was unhappy with the various XFCE/GTK2/GTK3 Windows 95 based themes and decided to make one that was more consistent across the board for theming.
 
-### Included in this theme:
+### Included in this theme
 
 - Icons to complete the icon theme started with Classic95
 - GTK2 and GTK3 themes
@@ -19,8 +19,10 @@ I was unhappy with the various XFCE/GTK2/GTK3 Windows 95 based themes and decide
 - An MS-DOS inspired theme for oh-my-zsh
 - Partial support for HiDPI monitors
 - Partial icon theme for LibreOffice 6+
+- [seebi/dircolors-solarized](https://github.com/seebi/dircolors-solarized)
+- [manekinekko/windows-nt-vscode-theme](https://github.com/manekinekko/windows-nt-vscode-theme)
 
-### Requirements:
+### Requirements
 
 - GTK+ 3.22 or 3.24
 - Xfce 4.12, 4.14, 4.16
@@ -28,7 +30,7 @@ I was unhappy with the various XFCE/GTK2/GTK3 Windows 95 based themes and decide
 - The xfce4-panel-profiles package
 - A Window compositor
 
-(If your are using an older desktop that uses GTK3.18, you can use [this forked version of the theme.](https://github.com/EMH-Mark-I/Chicago95-Custom-XUbuntu-16.04-))
+(If you are using an older desktop that uses GTK3.18, you can use [this forked version of the theme.](https://github.com/EMH-Mark-I/Chicago95-Custom-XUbuntu-16.04-))
 
 -----
 
@@ -40,7 +42,7 @@ I was unhappy with the various XFCE/GTK2/GTK3 Windows 95 based themes and decide
 
 ## Installation
 
-### Packages:
+### Packages
 
 |Distro|Package Name/Link|
 |:----:|:----:|
@@ -49,34 +51,41 @@ I was unhappy with the various XFCE/GTK2/GTK3 Windows 95 based themes and decide
 | Debian Testing/Unstable | [obs-repo] |
 | Ubuntu 18.04 - 20.04 | [obs-repo] |
 
-### Manual installation and setup instructions:
+### Manual installation and setup instructions
+
 [Click here](INSTALL.md) for install steps.
 
-### Install a Microsoft Windows Plus! theme:
+### Install a Microsoft Windows Plus! theme
+
 [Click here](Plus/README.MD) for installing custom themes.
 
-### Install the Plymouth boot splash theme:
+### Install the Plymouth boot splash theme
+
 [Click here](Plymouth/) for install steps.
 
-### Install the LibreOffice icon theme:
+### Install the LibreOffice icon theme
+
 [Click here](Extras/libreoffice-chicago95-iconset/README.md) for installing the LibreOffice Chicago95 icon theme.
 
-----
 ## Miscellaneous
 
-### KDE Support (experimental):
-- SDDM Logon Manager:: Click `Install from file...` in Loggin Screen (SDDM) manager. Select `SDDM/Chicago95.tar.gz` to install the theme. 
+### KDE Support (experimental)
+
+- SDDM Logon Manager:: Click `Install from file...` in Loggin Screen (SDDM) manager. Select `SDDM/Chicago95.tar.gz` to install the theme.
 - Splash Screen: `plasmapkg2 -t lookandfeel -i KDE/Splash/chicago95.splashscreen`
 
-### Screenshots:
+### Screenshots
+
 [Click here to view screenshots](Screenshots/SCREENSHOTS.md)
 
-### IRC server:
+### IRC server
+
 [Click here](https://web.emhmki.org:8443/) to connect to the IRC server. Please read server rules and be kind.
 
 ----
 
 ### Code and license
+
 License: GPL-3.0+/MIT
 
 [obs-repo]: https://software.opensuse.org//download.html?project=home%3Abgstack15%3AChicago95&package=chicago95-theme-all
