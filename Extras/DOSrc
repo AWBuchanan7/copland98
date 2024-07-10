@@ -1,12 +1,8 @@
 # Emulate an MS-DOS prompt in your Linux shell.
 # Laszlo Szathmary (jabba.laci@gmail.com), 2011
-# Project home page:
 # https://ubuntuincident.wordpress.com/2011/02/08/emulate-the-ms-dos-prompt/
-#
-#
 # Modified by Soldier of Fortran
-#
-# Add to you ~/.bashrc file with: 'source ~/.themes/95/bashrc'
+# Add to your ~/.bashrc file with: 'source ~/.themes/95/bashrc'
 
 function msdos_pwd
 {
@@ -14,12 +10,27 @@ function msdos_pwd
 
     echo $dir | tr '/' '\\'
 }
-
 export PS1='C:`msdos_pwd`> '
 
-echo 
+eval `dircolors /${HOME}/data/copland98/dircolors-solarized/dircolors.256dark`
+
+### large files util
+function lsbig() {
+    du -h -x -s -- * | sort -r -h | head -20;
+}
+
+### history
+function remind() {
+    history | grep "$1";
+}
+
+## ALIASES
+alias ddg="ddgr --expand --num 3"
+alias wiki="ddgr --expand --num 3 !w"
+alias gs='git status'
+
 echo
-echo "Microsoft(R) Windows 95"
-echo "   (C)Copyright Microsoft Corp 1981-1996."
+echo "Copland 98"
+echo "   (C)Copyright Copland Enterprises 1981-1998."
 echo
 

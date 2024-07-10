@@ -4,31 +4,31 @@
 
 <!--ts-->
 * [Installing Chicago95](#install_theme)
-    * [Single user automated install](#install_auto)
-    * [Single user manual install](#install_single)
-    * [System-wide manual install (optional)](#install_system)
+  * [Single user automated install](#install_auto)
+  * [Single user manual install](#install_single)
+  * [System-wide manual install (optional)](#install_system)
 * [Installing the LightDM Webkit Theme Font](#installing-the-lightdm-webkit-theme-font)
 * [Enabling The Theme](#config_theme)
 * [Configuring The XFCE4 Panelbar](#xfce4_panel)
-    * [Horizontal Panelbar](#horiz_panel)
-    * [Vertical Panelbar](#vert_panel)
+  * [Horizontal Panelbar](#horiz_panel)
+  * [Vertical Panelbar](#vert_panel)
 * [Start Buttons](#start_buttons)
 * [Additional Enhancements](#add_enhance)
-    * [GTK3 override configuration](#gtk3_override)
-    * [Launcher Button icon scaling](#button_scale) (*For legacy GTK2 panelbars only*)
-    * [Thunar status indicator](#thunar)
-    * [QT5 theme configration with qt5ct](#config_qt5ct)
-    * [Apply GTK theme for Flatpak applications](#flatpak_config)
-    * [GTK Overlay Scrollbars](#gtk_scroll)
-    * [Desktop Shadow effects](#desktop_shadow)
-    * [Desktop background color](#desktop_color)
-    * [Desktop icon effects](#desktop_icons)
-    * [Cursors](#cursors)
-    * [MS Sans Serif font](#ms_sans_serif)
-    * [Terminal fonts](#terminal_fonts)
-    * [Terminal themes](#terminal_themes)
-    * [Whisker Menu](#whiker_menu)
-    * [Sound theme](#startup_sound)
+  * [GTK3 override configuration](#gtk3_override)
+  * [Launcher Button icon scaling](#button_scale) (*For legacy GTK2 panelbars only*)
+  * [Thunar status indicator](#thunar)
+  * [QT5 theme configration with qt5ct](#config_qt5ct)
+  * [Apply GTK theme for Flatpak applications](#flatpak_config)
+  * [GTK Overlay Scrollbars](#gtk_scroll)
+  * [Desktop Shadow effects](#desktop_shadow)
+  * [Desktop background color](#desktop_color)
+  * [Desktop icon effects](#desktop_icons)
+  * [Cursors](#cursors)
+  * [MS Sans Serif font](#ms_sans_serif)
+  * [Terminal fonts](#terminal_fonts)
+  * [Terminal themes](#terminal_themes)
+  * [Whisker Menu](#whiker_menu)
+  * [Sound theme](#startup_sound)
 * [HiDPI (experimental)](#hidpi)
 * [Disabling GNOME Client Side Decorations](#nocsd)
 * [Common issues](#common_issues)
@@ -181,7 +181,7 @@ The following steps will guide you through configuring the XFCE4 panelbar to res
 
 ### Configuring a horizontal taskbar
 
-Below outlines the manual process to set this all up. This process can be automated by running `xfce4-panel-profiles load Extras/Chicago95_Panel_Preferences.tar.bz2`. 
+Below outlines the manual process to set this all up. This process can be automated by running `xfce4-panel-profiles load Extras/Chicago95_Panel_Preferences.tar.bz2`.
 
 #### Step 1: Setting the panelbar size
 
@@ -489,7 +489,7 @@ In XFCE select Settings -> Mouse and Touchpad. Click on 'Icons' and select one o
 
 #### Custom Cursor Themes
 
-If these themes aren't enough and you'd like to personalize your icon theme download your cursors (from sites like http://cd.textfiles.com/winfiles/winfiles1/cursors.html) and replace the cursor in `<cursor theme>/build/95` or `<cursor theme>/build/xcursors` (note: this only works in the Standard/Animated Hourgladd Cursors folders). You don't need to worry about the extension, the build script will work with regular cursors `.cur`, animated cursors `.ani` and icons `.ico`. So long as the file name before the file extension is the same. After you've made your changes run the python script `cursor_gen.py` from within the build directory and your new theme will be created. To give your theme a custom name edit the `index.theme` file. Then rename the folder and copy it using the same directions above. 
+If these themes aren't enough and you'd like to personalize your icon theme download your cursors (from sites like http://cd.textfiles.com/winfiles/winfiles1/cursors.html) and replace the cursor in `<cursor theme>/build/95` or `<cursor theme>/build/xcursors` (note: this only works in the Standard/Animated Hourgladd Cursors folders). You don't need to worry about the extension, the build script will work with regular cursors `.cur`, animated cursors `.ani` and icons `.ico`. So long as the file name before the file extension is the same. After you've made your changes run the python script `cursor_gen.py` from within the build directory and your new theme will be created. To give your theme a custom name edit the `index.theme` file. Then rename the folder and copy it using the same directions above.
 
 <a name="ms_sans_serif"/>
 
@@ -739,7 +739,7 @@ For Arch based platforms:
 
     pacman -S libxfce4ui-nocsd
 
-For other platforms, such as Debian 11 or non XUbuntu 21.04 flavours, you may have to build libxfce4ui-nocsd for yourself. 
+For other platforms, such as Debian 11 or non XUbuntu 21.04 flavours, you may have to build libxfce4ui-nocsd for yourself.
 
 ### Step 2:
 
@@ -780,7 +780,7 @@ After installing the gtk3-nocsd package, you may need to reboot your computer. T
 
 "I've installed the theme, but the colours look wrong."
 
-- This can occur if a GTK3 theme override is configured in  `~/.config/gtk-3.0/`. 
+- This can occur if a GTK3 theme override is configured in  `~/.config/gtk-3.0/`.
 - From a file-manager or terminal, navigate to `~/.config/gtk-3.0/` (Press Ctrl-h to display hidden files & directories.)
 - You should see a file by the name of `gtk.css`. Rename that file to gtk_bak.css, then log out and log back in.
 - Optionally, there's also a gtk.css file provided by Chicago95 which you can copy into your `~/.config/gtk-3.0/` directory. For instructions on this, checkout [GTK3 override configuration](#gtk3_override).
