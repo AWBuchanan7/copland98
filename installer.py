@@ -36,7 +36,7 @@ class InstallGUI:
     def set_style(self):
         # From https://gist.github.com/carlos-jenkins/8923124
         provider = Gtk.CssProvider()
-        provider.load_from_path(running_folder + "/Theme/Chicago95/gtk-3.0/gtk.css")
+        provider.load_from_path(running_folder + "/theme/Copland98/gtk-3.0/gtk.css")
         screen = Gdk.Display.get_default_screen(Gdk.Display.get_default())
         # I was unable to found instrospected version of this
         GTK_STYLE_PROVIDER_PRIORITY_APPLICATION = 600
@@ -56,12 +56,12 @@ class InstallGUI:
         #statvfs.f_frsize * statvfs.f_blocks     # Size of filesystem in bytes
         #statvfs.f_frsize * statvfs.f_bfree      # Actual number of free bytes
         self.available_kb = (statvfs.f_frsize * statvfs.f_bavail) / 1024
-        self.theme_size_kb = self.folder_size(running_folder+"/Theme")
+        self.theme_size_kb = self.folder_size(running_folder+"/theme")
         self.icons_size_kb = self.folder_size(running_folder+"/icons/Copland98")
-        self.cursors_size_kb = self.folder_size(running_folder+"/Cursors")
+        self.cursors_size_kb = self.folder_size(running_folder+"/cursors")
         self.background_size_kb = 0
         self.sounds_size_kb = self.folder_size(running_folder+"/sounds")
-        self.fonts_size_kb = self.folder_size(running_folder+"/Fonts")
+        self.fonts_size_kb = self.folder_size(running_folder+"/fonts")
         self.total_size_kb = (self.theme_size_kb + self.icons_size_kb + self.cursors_size_kb +
                     self.background_size_kb + self.sounds_size_kb + self.fonts_size_kb)
 
@@ -83,7 +83,7 @@ class InstallGUI:
         current_page = stack.get_visible_child_name()
         next_button = self.builder.get_object('next')
         if next_button.get_label() == "Install":
-            self.install_chicago95()
+            self.install_copland98()
             return
 
         if next_button.get_label() == "Finish":
@@ -160,7 +160,7 @@ class InstallGUI:
 
         stack.set_visible_child(component_page)
 
-    def install_chicago95(self):
+    def install_copland98(self):
         components = "\tTheme:\t\t{}\n\tIcons:\t\t{}\n\tCursors:\t{}\n\tBackground:\t{}\n\tSounds:\t\t{}\n\tFonts:\t\t{}".format(self.install_theme, self.install_icons, self.install_cursors, self.install_background, self.install_sounds, self.install_fonts)
         customizations = "\tThunar Graphics:\t{}\n\tChange Terminal Colors:\t{}\n\tSet Bash Prompt:\t{}\n\tSet zsh promt/theme:\t{}\n\tCustomize Panel:\t{}".format(self.thunar, self.terminal_colors, self.bash, self.zsh, self.panel)
         self.progress_label_sections = []
@@ -169,7 +169,7 @@ class InstallGUI:
         if self.install_theme:
             # Does ~/.themes exist?
             Path(os.path.expanduser("~/.themes")).mkdir(parents=True, exist_ok=True)
-            self.copy_files.update(self.get_files(running_folder+"/Theme/Chicago95/", os.path.expanduser("~/.themes"), "Theme"))
+            self.copy_files.update(self.get_files(running_folder+"/theme/Copland98/", os.path.expanduser("~/.themes"), "Theme"))
             self.copy_files["install_theme"] = self.install_theme
             self.progress_label_sections.append("GTK Theme")
         if self.install_icons:
@@ -179,7 +179,7 @@ class InstallGUI:
             self.progress_label_sections.append("Icons")
         if self.install_cursors:
             Path(os.path.expanduser("~/.icons")).mkdir(parents=True, exist_ok=True)
-            self.copy_files.update(self.get_files(running_folder+"/Cursors/", os.path.expanduser("~/.icons"), "Cursors"))
+            self.copy_files.update(self.get_files(running_folder+"/cursors/", os.path.expanduser("~/.icons"), "Cursors"))
             self.copy_files["install_cursors"] = self.install_cursors
             self.progress_label_sections.append("Cursors")
         if self.install_background:
@@ -187,12 +187,12 @@ class InstallGUI:
             self.progress_label_sections.append("Background")
         if self.install_sounds:
             Path(os.path.expanduser("~/.local/share/sounds")).mkdir(parents=True, exist_ok=True)
-            self.copy_files.update(self.get_files(running_folder+"/sounds/Chicago95/", os.path.expanduser("~/.local/share/sounds"), "sounds"))
+            self.copy_files.update(self.get_files(running_folder+"/sounds/Copland98/", os.path.expanduser("~/.local/share/sounds"), "sounds"))
             self.copy_files["install_sounds"] = self.install_sounds
             self.progress_label_sections.append("Sounds")
         if self.install_fonts:
             Path(os.path.expanduser("~/.fonts")).mkdir(parents=True, exist_ok=True)
-            self.copy_files.update(self.get_files(running_folder+"/Fonts/", os.path.expanduser("~/.fonts"), "Fonts"))
+            self.copy_files.update(self.get_files(running_folder+"/fonts/", os.path.expanduser("~/.fonts"), "Fonts"))
             self.copy_files["install_fonts"] = self.install_fonts
             self.progress_label_sections.append("Fonts")
         if self.thunar:
@@ -251,10 +251,10 @@ class InstallGUI:
             else:
                 if from_file == "install_theme" and self.copy_files["install_theme"]:
                     print("Enabling Theme in XFCE4")
-                    self.xfconf_query('xsettings', '/Net/ThemeName', "Chicago95")
-                    self.xfconf_query('xfce4-notifyd', '/theme', "Chicago95")
+                    self.xfconf_query('xsettings', '/Net/ThemeName', "Copland98")
+                    self.xfconf_query('xfce4-notifyd', '/theme', "Copland98")
                     self.xfconf_query('xfce4-notifyd', '/initial-opacity', "1.000000")
-                    self.xfconf_query('xfwm4', '/general/theme', "Chicago95")
+                    self.xfconf_query('xfwm4', '/general/theme', "Copland98")
                     self.xfconf_query('xfwm4', '/general/title_font', "Sans Bold 8")
                     self.xfconf_query("xfwm4","/general/shadow_delta_height","0")
                     self.xfconf_query("xfwm4","/general/shadow_delta_width","0")
@@ -313,18 +313,18 @@ class InstallGUI:
                     print("Enabling Sounds in XFCE4")
                     self.xfconf_query('xsettings', '/Net/EnableEventSounds', "true")
                     self.xfconf_query('xsettings', '/Net/EnableInputFeedbackSounds', "true")
-                    self.xfconf_query('xsettings', '/Net/SoundThemeName', "Chicago95")
+                    self.xfconf_query('xsettings', '/Net/SoundThemeName', "Copland98")
                     self.change_component_label()
                 elif from_file == "install_fonts" and self.copy_files["install_fonts"]:
                     print("Enabling Fonts in XFCE4")
                     self.change_component_label()
                 # LOL this is a lie we don't have to do anything
                 elif from_file == "thunar" and self.copy_files["thunar"]:
-                    if os.path.exists(os.path.expanduser("~/.themes/Chicago95/gtk-3.24/apps/thunar.css")):
+                    if os.path.exists(os.path.expanduser("~/.themes/Copland98/gtk-3.24/apps/thunar.css")):
                         print("Enabling authenticity in Thunar")
-                        shutil.move( os.path.expanduser("~/.themes/Chicago95/gtk-3.24/apps/thunar.css"),os.path.expanduser("~/.themes/Chicago95/gtk-3.24/apps/thunar.css.bak") )
-                        fileh = open(os.path.expanduser("~/.themes/Chicago95/gtk-3.24/apps/thunar.css.bak"),"r")
-                        nfileh = open(os.path.expanduser("~/.themes/Chicago95/gtk-3.24/apps/thunar.css"),"w")
+                        shutil.move( os.path.expanduser("~/.themes/Copland98/gtk-3.24/apps/thunar.css"),os.path.expanduser("~/.themes/Copland98/gtk-3.24/apps/thunar.css.bak") )
+                        fileh = open(os.path.expanduser("~/.themes/Copland98/gtk-3.24/apps/thunar.css.bak"),"r")
+                        nfileh = open(os.path.expanduser("~/.themes/Copland98/gtk-3.24/apps/thunar.css"),"w")
                         next_line = False
                         for line in fileh:
                             if next_line:
@@ -342,7 +342,7 @@ class InstallGUI:
                         fileh.close()
                         nfileh.close()
                     else:
-                        print("Chicago95 theme not installed, cannot modify thunar")
+                        print("Copland98 theme not installed, cannot modify thunar")
                     self.change_component_label()
                 elif from_file == "terminal_colors" and self.copy_files["terminal_colors"]:
                     print("Enabling Terminal color theme")
@@ -354,7 +354,7 @@ class InstallGUI:
                     prompts = prompts_file.read()
                     prompts_file.close()
                     if os.path.exists(os.path.expanduser("~/.bashrc")):
-                        shutil.copyfile(os.path.expanduser("~/.bashrc"),os.path.expanduser("~/.config/xfce4/terminal/backup.bashrc.chicago95"))
+                        shutil.copyfile(os.path.expanduser("~/.bashrc"),os.path.expanduser("~/.config/xfce4/terminal/backup.bashrc.copland98"))
                         bashrc_out = open(os.path.expanduser("~/.bashrc"), "a")
                         bashrc_out.write(prompts)
                         bashrc_out.close()
@@ -362,28 +362,6 @@ class InstallGUI:
                         bashrc_out = open(os.path.expanduser("~/.bashrc"), "w")
                         bashrc_out.write(prompts)
                         bashrc_out.close()
-                    self.change_component_label()
-
-                elif from_file == "zsh" and self.copy_files["zsh"]:
-                    if os.path.exists(os.path.expanduser("~/.oh-my-zsh")):
-                        print("Enabling zsh theme/prompt")
-
-                        prompts_file = open(running_folder+"/Extras/ZSHDOSrc", "r")
-                        prompts = prompts_file.read()
-                        prompts_file.close()
-
-                        shutil.copyfile(running_folder+"/Extras/Chicago95.zsh-theme", os.path.expanduser("~/.oh-my-zsh/themes/Chicago95.zsh-theme"))
-                        shutil.move( os.path.expanduser("~/.zshrc"),os.path.expanduser("~/.backup.zshrc.chicago95") )
-                        fileh = open(os.path.expanduser("~/.backup.zshrc.chicago95"),"r")
-                        nfileh = open(os.path.expanduser("~/.zshrc"),"w")
-                        for line in fileh:
-                            if "ZSH_THEME" in line:
-                                line = "ZSH_THEME=Chicago95"
-                            nfileh.write(line)
-                        fileh.close()
-                        nfileh.close()
-                    else:
-                        print("Oh my zsh not installed, cannot install theme")
                     self.change_component_label()
                 elif from_file == "panel" and self.copy_files["panel"]:
                     print("Generating XFCE panel")
@@ -420,7 +398,7 @@ class InstallGUI:
         try:
             xfconf_query_path = subprocess.check_output(["which", "xfconf-query"]).strip()
         except:
-            print("Warning: xfconf-query not installed, cannot auto-enable theme. Use your distros theme management to install Chicago95")
+            print("Warning: xfconf-query not installed, cannot auto-enable theme. Use your distros theme management to install Copland98")
             return
 
         try:

@@ -1,4 +1,4 @@
-# Chicago95
+# Copland98
 #### XFCE / Xubuntu Windows 95 Total Conversion
 
 <p align="center">
@@ -7,8 +7,6 @@
 
 *Click [here](Screenshots/SCREENSHOTS.md) for more screenshots*
 
-I was unhappy with the various XFCE/GTK2/GTK3 Windows 95 based themes and decided to make one that was more consistent across the board for theming.
-
 ### Included in this theme
 
 - Icons to complete the icon theme started with Classic95
@@ -16,7 +14,6 @@ I was unhappy with the various XFCE/GTK2/GTK3 Windows 95 based themes and decide
 - Edited Redmond XFWM theme to more accurately reflect Windows 95
 - Chicago95 Plus! A tool to preview and install Windows 95/98/ME/XP themes
 - Plymouth theme created from scratch
-- An MS-DOS inspired theme for oh-my-zsh
 - Partial support for HiDPI monitors
 - Partial icon theme for LibreOffice 6+
 - [seebi/dircolors-solarized](https://github.com/seebi/dircolors-solarized)
@@ -30,26 +27,11 @@ I was unhappy with the various XFCE/GTK2/GTK3 Windows 95 based themes and decide
 - The xfce4-panel-profiles package
 - A Window compositor
 
-(If you are using an older desktop that uses GTK3.18, you can use [this forked version of the theme.](https://github.com/EMH-Mark-I/Chicago95-Custom-XUbuntu-16.04-))
-
------
-
 ## Documentation
 
 [Click here](INSTALL.md) for Chicago95 documentation and extra features.
 
------
-
 ## Installation
-
-### Packages
-
-|Distro|Package Name/Link|
-|:----:|:----:|
-| Debian 9 | [obs-repo] |
-| Debian 10 | [obs-repo] |
-| Debian Testing/Unstable | [obs-repo] |
-| Ubuntu 18.04 - 20.04 | [obs-repo] |
 
 ### Manual installation and setup instructions
 
@@ -74,18 +56,6 @@ I was unhappy with the various XFCE/GTK2/GTK3 Windows 95 based themes and decide
 - SDDM Logon Manager:: Click `Install from file...` in Loggin Screen (SDDM) manager. Select `SDDM/Chicago95.tar.gz` to install the theme.
 - Splash Screen: `plasmapkg2 -t lookandfeel -i KDE/Splash/chicago95.splashscreen`
 
-### Screenshots
-
-[Click here to view screenshots](Screenshots/SCREENSHOTS.md)
-
-### IRC server
-
-[Click here](https://web.emhmki.org:8443/) to connect to the IRC server. Please read server rules and be kind.
-
-----
-
 ### Code and license
 
 License: GPL-3.0+/MIT
-
-[obs-repo]: https://software.opensuse.org//download.html?project=home%3Abgstack15%3AChicago95&package=chicago95-theme-all
