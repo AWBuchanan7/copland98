@@ -1,8 +1,8 @@
 [Icon Theme]
 Name=Copland 98
-Comment=Enhanced Classic Win98SE icon theme for GNU/Linux.
-Comment[fr]=Thème d`icônes Classic Win98SE amélioré pour GNU/Linux.
-Comment[ja]=GNU/Linux 用の強化された Classic Win98SE アイコン テーマ。
+Comment=Enhanced classic Windows 9X icon theme for GNU/Linux.
+Comment[fr]=Thème d`icônes Classic Win9X amélioré pour GNU/Linux.
+Comment[ja]=GNU/Linux 用の強化された Classic Win9X アイコン テーマ。
 Example=user-desktop
 Inherits=Chicago95,hicolor,gnome
 

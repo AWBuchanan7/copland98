@@ -492,21 +492,6 @@ boxes below.</property>
                           </packing>
                         </child>
                         <child>
-                          <object class="GtkCheckButton" id="zsh">
-                            <property name="label" translatable="yes">Change zsh prompt</property>
-                            <property name="visible">True</property>
-                            <property name="can_focus">True</property>
-                            <property name="receives_default">False</property>
-                            <property name="tooltip_text" translatable="yes">Adds the DOS prompt to oh-my-zsh and installs/enables the zsh theme. Requires Oh-my-zsh be installed.</property>
-                            <property name="draw_indicator">True</property>
-                            <signal name="toggled" handler="set_change_zsh" swapped="no"/>
-                          </object>
-                          <packing>
-                            <property name="left_attach">0</property>
-                            <property name="top_attach">3</property>
-                          </packing>
-                        </child>
-                        <child>
                           <object class="GtkCheckButton" id="panel">
                             <property name="label" translatable="yes">Customize XFCE panel</property>
                             <property name="visible">True</property>
@@ -519,7 +504,7 @@ boxes below.</property>
                           </object>
                           <packing>
                             <property name="left_attach">0</property>
-                            <property name="top_attach">4</property>
+                            <property name="top_attach">3</property>
                           </packing>
                         </child>
                       </object>

@@ -12,9 +12,6 @@
 - Icons to complete the icon theme started with Classic95
 - GTK2 and GTK3 themes
 - Edited Redmond XFWM theme to more accurately reflect Windows 95
-- Chicago95 Plus! A tool to preview and install Windows 95/98/ME/XP themes
-- Plymouth theme created from scratch
-- Partial support for HiDPI monitors
 - Partial icon theme for LibreOffice 6+
 - [seebi/dircolors-solarized](https://github.com/seebi/dircolors-solarized)
 - [manekinekko/windows-nt-vscode-theme](https://github.com/manekinekko/windows-nt-vscode-theme)
