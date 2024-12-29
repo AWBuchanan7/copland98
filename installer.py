@@ -6,16 +6,13 @@ from pathlib import Path
 import shutil
 import subprocess
 import gi
-
 gi.require_version("Gtk", "3.0")
 from gi.repository import Gtk, Gdk, GLib
-
 
 ASSETS = "/Extras/"
 UI_FILE = "installer.glade"
 
 running_folder = os.path.dirname(os.path.abspath(__file__))
-
 
 class InstallGUI:
     def __init__(self):
@@ -52,9 +49,7 @@ class InstallGUI:
         return False
 
     def folder_size(self, path="."):
-        return int(
-            subprocess.check_output(["du", "-sk", path]).split()[0].decode("utf-8")
-        )
+        return int(subprocess.check_output(["du", "-sk", path]).split()[0].decode("utf-8"))
 
     def get_sizes(self):
         # Get sizes
@@ -115,28 +110,24 @@ class InstallGUI:
             self.fonts_size = self.builder.get_object("font size")
             self.remaining_size = self.builder.get_object("remaining size")
             self.total_size = self.builder.get_object("total size")
+
             # Change the labels
             self.theme_size.set_label("{} k".format(self.theme_size_kb))
             self.icons_size.set_label("{} k".format(self.icons_size_kb))
             self.cursors_size.set_label("{} k".format(self.cursors_size_kb))
             self.sounds_size.set_label("{} k".format(self.sounds_size_kb))
             self.fonts_size.set_label("{} k".format(self.fonts_size_kb))
-            self.remaining_size.set_label(
-                "{:.0f} k".format(int(self.available_kb - self.total_size_kb))
-            )
+            self.remaining_size.set_label("{:.0f} k".format(int(self.available_kb - self.total_size_kb)))
             self.total_size.set_label("{} k".format(self.total_size_kb))
 
         else:
             component_page = stack.get_child_by_name("page_customizations")
             thunar_check = self.builder.get_object("thunar")
             panel_check = self.builder.get_object("panel")
+
             if not self.install_theme:
-                print(
-                    "[THUNAR] Warning: GTK Theme not selected, cannot install Thunar status bar image"
-                )
-                thunar_check.set_tooltip_text(
-                    "Warning: GTK Theme not selected, cannot install Thunar status bar image"
-                )
+                print("[THUNAR] Warning: GTK Theme not selected, cannot install Thunar status bar image")
+                thunar_check.set_tooltip_text("Warning: GTK Theme not selected, cannot install Thunar status bar image")
                 thunar_check.set_sensitive(False)
                 thunar_check.set_active(False)
                 self.thunar = False
@@ -147,12 +138,8 @@ class InstallGUI:
                 self.thunar = True
 
             if not self.check_xfce_panel():
-                print(
-                    "[PANEL] Warning: xfce4-panel-profiles not installed, manual panel installation required. See INSTALL.md"
-                )
-                panel_check.set_tooltip_text(
-                    "Warning: xfce4-panel-profiles not installed, manual panel installation required. See INSTALL.md"
-                )
+                print("[PANEL] Warning: xfce4-panel-profiles not installed, manual panel installation required. See INSTALL.md")
+                panel_check.set_tooltip_text("Warning: xfce4-panel-profiles not installed, manual panel installation required. See INSTALL.md")
                 panel_check.set_sensitive(False)
                 panel_check.set_active(False)
                 self.panel = False
@@ -166,7 +153,6 @@ class InstallGUI:
         current_page = stack.get_visible_child_name()
 
         if current_page == "page_components":
-            # component_page = self.builder.get_object('page_components')
             component_page = stack.get_child_by_name("page_welcome")
             back_button = self.builder.get_object("back")
             back_button.set_sensitive(False)
@@ -191,115 +177,51 @@ class InstallGUI:
             self.thunar, self.terminal_colors, self.bash, self.panel
         )
         self.progress_label_sections = []
-        print(
-            "Installing Copland 98 with the following options:\n Components:\n {}\n Customizations:\n {}".format(
-                components, customizations
-            )
-        )
+        print("Installing Copland 98 with the following options:\n Components:\n {}\n Customizations:\n {}"
+              .format(components, customizations))
         self.copy_files = {}
         if self.install_theme:
             # Does ~/.themes exist?
-            Path(os.path.expanduser("~/.themes")).mkdir(
-                parents=True, exist_ok=True
-            )
-            self.copy_files.update(
-                self.get_files(
-                    running_folder + "/theme/Copland98/",
-                    os.path.expanduser("~/.themes"),
-                    "theme",
-                )
-            )
+            Path(os.path.expanduser("~/.themes")).mkdir(parents=True, exist_ok=True)
+            self.copy_files.update(self.get_files(running_folder + "/theme/Copland98/", os.path.expanduser("~/.themes"), "theme"))
             self.copy_files["install_theme"] = self.install_theme
             self.progress_label_sections.append("GTK Theme")
         if self.install_icons:
-            Path(os.path.expanduser("~/.icons")).mkdir(
-                parents=True, exist_ok=True
-            )
-            self.copy_files.update(
-                self.get_files(
-                    running_folder + "/icons/Copland98/",
-                    os.path.expanduser("~/.icons"),
-                    "icons",
-                )
-            )
+            Path(os.path.expanduser("~/.icons")).mkdir(parents=True, exist_ok=True)
+            self.copy_files.update(self.get_files(running_folder + "/icons/Copland98/", os.path.expanduser("~/.icons"),"icons"))
             self.copy_files["install_icons"] = self.install_icons
             self.progress_label_sections.append("Icons")
         if self.install_cursors:
-            Path(os.path.expanduser("~/.icons")).mkdir(
-                parents=True, exist_ok=True
-            )
-            self.copy_files.update(
-                self.get_files(
-                    running_folder + "/cursors/",
-                    os.path.expanduser("~/.icons"),
-                    "cursors",
-                )
-            )
+            Path(os.path.expanduser("~/.icons")).mkdir(parents=True, exist_ok=True)
+            self.copy_files.update(self.get_files(running_folder + "/cursors/", os.path.expanduser("~/.icons"),"cursors"))
             self.copy_files["install_cursors"] = self.install_cursors
             self.progress_label_sections.append("Cursors")
         if self.install_background:
             self.copy_files["install_background"] = self.install_background
             self.progress_label_sections.append("Background")
         if self.install_sounds:
-            Path(os.path.expanduser("~/.local/share/sounds")).mkdir(
-                parents=True, exist_ok=True
-            )
-            self.copy_files.update(
-                self.get_files(
-                    running_folder + "/sounds/Copland98/",
-                    os.path.expanduser("~/.local/share/sounds"),
-                    "sounds",
-                )
-            )
+            Path(os.path.expanduser("~/.local/share/sounds")).mkdir(parents=True, exist_ok=True)
+            self.copy_files.update(self.get_files(running_folder + "/sounds/Copland98/",os.path.expanduser("~/.local/share/sounds"),"sounds"))
             self.copy_files["install_sounds"] = self.install_sounds
             self.progress_label_sections.append("Sounds")
         if self.install_fonts:
-            Path(os.path.expanduser("~/.fonts")).mkdir(
-                parents=True, exist_ok=True
-            )
-            Path(os.path.expanduser("~/.fonts/bitmap")).mkdir(
-                parents=True, exist_ok=True
-            )
-            Path(os.path.expanduser("~/.fonts/pokemon-gb")).mkdir(
-                parents=True, exist_ok=True
-            )
-            Path(os.path.expanduser("~/.fonts/vga_font")).mkdir(
-                parents=True, exist_ok=True
-            )
-            self.copy_files.update(
-                self.get_files(
-                    running_folder + "/fonts/",
-                    os.path.expanduser("~/.fonts"),
-                    "fonts",
-                )
-            )
+            Path(os.path.expanduser("~/.fonts")).mkdir(parents=True, exist_ok=True)
+            Path(os.path.expanduser("~/.fonts/bitmap")).mkdir(parents=True, exist_ok=True)
+            Path(os.path.expanduser("~/.fonts/pokemon-gb")).mkdir(parents=True, exist_ok=True)
+            Path(os.path.expanduser("~/.fonts/vga_font")).mkdir(parents=True, exist_ok=True)
+            self.copy_files.update(self.get_files(running_folder + "/fonts/", os.path.expanduser("~/.fonts"), "fonts"))
             self.copy_files["install_fonts"] = self.install_fonts
             self.progress_label_sections.append("Fonts")
         if self.thunar:
             self.copy_files["thunar"] = self.thunar
             self.progress_label_sections.append("Thunar Spinner")
         if self.terminal_colors:
-            Path(
-                os.path.expanduser("~/.local/share/xfce4/terminal/colorschemes")
-            ).mkdir(parents=True, exist_ok=True)
-            self.copy_files[running_folder + "/Extras/Chicago95.theme"] = (
-                os.path.expanduser("~/.local/share/xfce4/terminal/colorschemes")
-            )
-            Path(os.path.expanduser("~/.config/xfce4/terminal/")).mkdir(
-                parents=True, exist_ok=True
-            )
-            self.copy_files[running_folder + "/Extras/terminalrc"] = os.path.expanduser(
-                "~/.config/xfce4/terminal/"
-            )
-            if os.path.exists(
-                os.path.expanduser("~/.config/xfce4/terminal/terminalrc")
-            ):
-                shutil.copyfile(
-                    os.path.expanduser("~/.config/xfce4/terminal/terminalrc"),
-                    os.path.expanduser(
-                        "~/.config/xfce4/terminal/backup.terminalrc.chicago95"
-                    ),
-                )
+            Path(os.path.expanduser("~/.local/share/xfce4/terminal/colorschemes")).mkdir(parents=True, exist_ok=True)
+            self.copy_files[running_folder + "/Extras/Chicago95.theme"] = (os.path.expanduser("~/.local/share/xfce4/terminal/colorschemes"))
+            Path(os.path.expanduser("~/.config/xfce4/terminal/")).mkdir(parents=True, exist_ok=True)
+            self.copy_files[running_folder + "/Extras/terminalrc"] = os.path.expanduser("~/.config/xfce4/terminal/")
+            if os.path.exists(os.path.expanduser("~/.config/xfce4/terminal/terminalrc")):
+                shutil.copyfile(os.path.expanduser("~/.config/xfce4/terminal/terminalrc"), os.path.expanduser("~/.config/xfce4/terminal/backup.terminalrc.chicago95"))
             self.copy_files["terminal_colors"] = self.terminal_colors
             self.progress_label_sections.append("Terminal Colors")
         if self.bash:
@@ -314,9 +236,7 @@ class InstallGUI:
         self.progress_bar = self.builder.get_object("progress bar")
         self.progress_label = self.builder.get_object("progress file")
         self.progress_label_component = self.builder.get_object("progress label")
-        self.progress_label_component.set_label(
-            "Installing component: {}".format(next(self.progres_label_names))
-        )
+        self.progress_label_component.set_label("Installing component: {}".format(next(self.progres_label_names)))
         first_file_name = list(self.copy_files.keys())[0].split("/")[-1]
         self.progress_label.set_label(first_file_name)
         self.progress_bar.set_fraction(0.0)
@@ -329,20 +249,16 @@ class InstallGUI:
         i = 0.0
         print("Installing Copland 98")
 
-        for from_file in self.copy_files.items():
+        for from_file in self.copy_files:
             self.progress_label.set_label(from_file.split("/")[-1])
             i += 1.0
             self.progress_bar.set_fraction(i / len(self.copy_files))
             # copy action here
             if isinstance(self.copy_files[from_file], str):
                 if not os.path.isdir(os.path.dirname(self.copy_files[from_file])):
-                    Path(os.path.dirname(self.copy_files[from_file])).mkdir(
-                        parents=True, exist_ok=True
-                    )
+                    Path(os.path.dirname(self.copy_files[from_file])).mkdir(parents=True, exist_ok=True)
                 try:
-                    shutil.copy(
-                        from_file, self.copy_files[from_file], follow_symlinks=False
-                    )
+                    shutil.copy(from_file, self.copy_files[from_file], follow_symlinks=False)
                 except FileExistsError:
                     pass  # We need to do this if we're overwritting the theme cause of symlinks
             else:
@@ -362,127 +278,51 @@ class InstallGUI:
                     self.xfconf_query("xfwm4", "/general/show_frame_shadow", "false")
                     self.xfconf_query("xfwm4", "/general/show_popup_shadow", "false")
                     self.xfconf_query("xfwm4", "/general/title_shadow_active", "false")
-                    self.xfconf_query(
-                        "xfwm4", "/general/title_shadow_inactive", "false"
-                    )
+                    self.xfconf_query("xfwm4", "/general/title_shadow_inactive", "false")
                     self.change_component_label()
-
                 elif from_file == "install_icons" and self.copy_files["install_icons"]:
                     print("Enabling Icons in XFCE4")
                     self.xfconf_query("xsettings", "/Net/FallbackIconTheme", "Adwaita")
                     self.xfconf_query("xsettings", "/Net/IconThemeName", "Copland98")
-                    self.xfconf_query(
-                        "xfce4-desktop",
-                        "/desktop-icons/file-icons/show-filesystem",
-                        "true",
-                    )
-                    self.xfconf_query(
-                        "xfce4-desktop", "/desktop-icons/file-icons/show-home", "true"
-                    )
-                    self.xfconf_query(
-                        "xfce4-desktop", "/desktop-icons/file-icons/show-trash", "true"
-                    )
+                    self.xfconf_query("xfce4-desktop", "/desktop-icons/file-icons/show-filesystem", "false",)
+                    self.xfconf_query("xfce4-desktop", "/desktop-icons/file-icons/show-home", "false")
+                    self.xfconf_query("xfce4-desktop", "/desktop-icons/file-icons/show-trash", "false")
                     self.change_component_label()
-                elif (
-                    from_file == "install_background"
-                    and self.copy_files["install_background"]
-                ):
+                elif (from_file == "install_background" and self.copy_files["install_background"]):
                     print("Changing background")
                     r = "{:6f}".format(0 / 255)
                     g = "{:6f}".format(128 / 255)
                     b = "{:6f}".format(128 / 255)
                     a = "1.000000"
                     try:
-                        self.xfconf_query(
-                            "xfce4-desktop",
-                            "/backdrop/screen0/monitorVirtual1/workspace0/image-style",
-                            "0",
-                        )
+                        self.xfconf_query("xfce4-desktop", "/backdrop/screen0/monitorVirtual1/workspace0/image-style", "0")
                         args = [
-                            "xfconf-query",
-                            "-c",
-                            "xfce4-desktop",
-                            "-p",
-                            "/backdrop/screen0/monitorVirtual1/workspace0/rgba1",
-                            "--create",
-                            "-t",
-                            "double",
-                            "-s",
-                            "0.000000",
-                            "-t",
-                            "double",
-                            "-s",
-                            "0.500000",
-                            "-t",
-                            "double",
-                            "-s",
-                            "0.500000",
-                            "-t",
-                            "double",
-                            "-s",
-                            "1.000000",
+                            "xfconf-query", "-c", "xfce4-desktop", "-p", "/backdrop/screen0/monitorVirtual1/workspace0/rgba1", "--create", "-t",
+                            "double", "-s", "0.000000", "-t", "double", "-s", "0.500000", "-t", "double", "-s", "0.500000", "-t", "double", "-s", "1.000000"
                         ]
                         subprocess.check_call(args, stdout=subprocess.DEVNULL)
                     except subprocess.CalledProcessError:
                         try:
-                            self.xfconf_query(
-                                "xfce4-desktop",
-                                "/backdrop/screen0/monitor0/workspace0/image-style",
-                                "0",
-                            )
+                            self.xfconf_query("xfce4-desktop", "/backdrop/screen0/monitor0/workspace0/image-style", "0")
                             args = [
-                                "xfconf-query",
-                                "-c",
-                                "xfce4-desktop",
-                                "-p",
-                                "/backdrop/screen0/monitor0/workspace0/rgba1",
-                                "-t",
-                                "double",
-                                "-s",
-                                "0.000000",
-                                "-t",
-                                "double",
-                                "-s",
-                                "0.500000",
-                                "-t",
-                                "double",
-                                "-s",
-                                "0.500000",
-                                "-t",
-                                "double",
-                                "-s",
-                                "1.000000",
+                                "xfconf-query", "-c", "xfce4-desktop", "-p", "/backdrop/screen0/monitor0/workspace0/rgba1", "-t", "double",
+                                "-s", "0.000000", "-t", "double", "-s", "0.500000", "-t", "double", "-s", "0.500000", "-t", "double", "-s", "1.000000",
                             ]
                             subprocess.check_call(args, stdout=subprocess.DEVNULL)
                         except:
-                            print(
-                                "Could not update background. Set your background manually to #008080"
-                            )
+                            print("Could not update background. Set your background manually to #008080")
                     except:
-                        print(
-                            "Could not update background. Set your background manually to #008080"
-                        )
+                        print("Could not update background. Set your background manually to #008080")
                     self.change_component_label()
 
-                elif (
-                    from_file == "install_cursors"
-                    and self.copy_files["install_cursors"]
-                ):
+                elif (from_file == "install_cursors" and self.copy_files["install_cursors"]):
                     print("Enabling Cursors in XFCE4")
-                    self.xfconf_query(
-                        "xsettings",
-                        "/Gtk/CursorThemeName",
-                        "Copland98 Standard Cursors",
-                    )
+                    self.xfconf_query("xsettings","/Gtk/CursorThemeName","Copland98 Standard Cursors",)
                     self.change_component_label()
-                elif (
-                    from_file == "install_sounds" and self.copy_files["install_sounds"]
-                ):
+                elif (from_file == "install_sounds" and self.copy_files["install_sounds"]):
                     print("Enabling Sounds in XFCE4")
                     self.xfconf_query("xsettings", "/Net/EnableEventSounds", "true")
-                    self.xfconf_query(
-                        "xsettings", "/Net/EnableInputFeedbackSounds", "true"
-                    )
+                    self.xfconf_query("xsettings", "/Net/EnableInputFeedbackSounds", "true")
                     self.xfconf_query("xsettings", "/Net/SoundThemeName", "Copland98")
                     self.change_component_label()
                 elif from_file == "install_fonts" and self.copy_files["install_fonts"]:
@@ -490,32 +330,12 @@ class InstallGUI:
                     self.change_component_label()
                 # LOL this is a lie we don't have to do anything
                 elif from_file == "thunar" and self.copy_files["thunar"]:
-                    if os.path.exists(
-                        os.path.expanduser(
-                            "~/.themes/Copland98/gtk-3.24/apps/thunar.css"
-                        )
-                    ):
+                    if os.path.exists(os.path.expanduser("~/.themes/Copland98/gtk-3.24/apps/thunar.css")):
                         print("Enabling authenticity in Thunar")
-                        shutil.move(
-                            os.path.expanduser(
-                                "~/.themes/Copland98/gtk-3.24/apps/thunar.css"
-                            ),
-                            os.path.expanduser(
-                                "~/.themes/Copland98/gtk-3.24/apps/thunar.css.bak"
-                            ),
-                        )
-                        fileh = open(
-                            os.path.expanduser(
-                                "~/.themes/Copland98/gtk-3.24/apps/thunar.css.bak"
-                            ),
-                            "r",
-                        )
-                        nfileh = open(
-                            os.path.expanduser(
-                                "~/.themes/Copland98/gtk-3.24/apps/thunar.css"
-                            ),
-                            "w",
-                        )
+                        shutil.move(os.path.expanduser("~/.themes/Copland98/gtk-3.24/apps/thunar.css"),
+                                    os.path.expanduser("~/.themes/Copland98/gtk-3.24/apps/thunar.css.bak"))
+                        fileh = open(os.path.expanduser("~/.themes/Copland98/gtk-3.24/apps/thunar.css.bak"),"r")
+                        nfileh = open(os.path.expanduser("~/.themes/Copland98/gtk-3.24/apps/thunar.css"), "w")
                         next_line = False
                         for line in fileh:
                             if next_line:
@@ -526,11 +346,7 @@ class InstallGUI:
                                 if "*/" in line:
                                     line = line.replace("*/", "")
                                     next_line = False
-
-                            if (
-                                "You can enable the spin button theme by uncommenting the following!"
-                                in line
-                            ):
+                            if "You can enable the spin button theme by uncommenting the following!" in line:
                                 next_line = True
                             nfileh.write(line)
                         fileh.close()
@@ -553,10 +369,7 @@ class InstallGUI:
                     if os.path.exists(os.path.expanduser("~/.bashrc")):
                         shutil.copyfile(
                             os.path.expanduser("~/.bashrc"),
-                            os.path.expanduser(
-                                "~/.config/xfce4/terminal/backup.bashrc.copland98"
-                            ),
-                        )
+                            os.path.expanduser("~/.config/xfce4/terminal/backup.bashrc.copland98"),)
                         bashrc_out = open(os.path.expanduser("~/.bashrc"), "a")
                         bashrc_out.write(prompts)
                         bashrc_out.close()
@@ -567,23 +380,16 @@ class InstallGUI:
                     self.change_component_label()
                 elif from_file == "panel" and self.copy_files["panel"]:
                     print("Generating XFCE panel")
-                    print(
-                        "Installing Panel config from: "
-                        + running_folder
-                        + "/Extras/Chicago95_Panel_Preferences.tar.bz2"
-                    )
+                    print("Installing Panel config from: " + running_folder + "/Extras/Chicago95_Panel_Preferences.tar.bz2")
                     # xfce4-panel-profiles load Extras/Chicago95_Panel_Preferences.tar.bz2
                     subprocess.check_call(
                         [
                             "xfce4-panel-profiles",
-                            "load",
-                            running_folder
-                            + "/Extras/Chicago95_Panel_Preferences.tar.bz2",
+                            "load", running_folder + "/Extras/Chicago95_Panel_Preferences.tar.bz2",
                         ],
                         stdout=subprocess.DEVNULL,
                     )
                     self.change_component_label()
-
             gc.collect()
             yield True
 
@@ -596,14 +402,12 @@ class InstallGUI:
         next_button.set_label("Finish")
         self.window_installer.show_all()
         GLib.source_remove(self.id)
-        subprocess.Popen(["mousepad", running_folder + "/Extras/post_install.txt"])
+        # subprocess.Popen(["mousepad", running_folder + "/Extras/post_install.txt"])
         yield False
 
     def change_component_label(self):
         try:
-            self.progress_label_component.set_label(
-                "Installing component: {}".format(next(self.progres_label_names))
-            )
+            self.progress_label_component.set_label("Installing component: {}".format(next(self.progres_label_names)))
         except:
             pass
 
@@ -614,16 +418,11 @@ class InstallGUI:
                 ["which", "xfconf-query"]
             ).strip()
         except:
-            print(
-                "Warning: xfconf-query not installed, cannot auto-enable theme. Use your distros theme management to install Copland98"
-            )
+            print("Warning: xfconf-query not installed, cannot auto-enable theme. Use your distros theme management to install Copland98")
             return
 
         try:
-
-            print(
-                "Changing xfconf setting {}/{} to {}".format(channel, prop, new_value)
-            )
+            print("Changing xfconf setting {}/{} to {}".format(channel, prop, new_value))
             args = [
                 xfconf_query_path,
                 "--channel",
@@ -657,9 +456,7 @@ class InstallGUI:
     def check_xfce_panel(self):
 
         try:
-            xfce_panel = subprocess.check_output(
-                ["which", "xfce4-panel-profiles"]
-            ).strip()
+            xfce_panel = subprocess.check_output(["which", "xfce4-panel-profiles"]).strip()
         except subprocess.CalledProcessError:
             return False
         return True
